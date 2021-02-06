@@ -41,8 +41,8 @@ services:
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOST=db-host
-      - PMA_USER=docker
-      - PMA_PASSWORD=docker
+      - PMA_USER=laravel-user
+      - PMA_PASSWORD=laravel-pass
     links:
       - db
     ports:
