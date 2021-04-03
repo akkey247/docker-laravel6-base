@@ -17,7 +17,7 @@ $ docker-compose exec php bash
 ### 3. Laravel プロジェクト作成
 
 ```
-/var/www# composer create-project --prefer-dist laravel/laravel=5.8.* .
+/var/www# composer create-project --prefer-dist laravel/laravel=6.* .
 ```
 
 ### 4. Laravel の DB 設定変更
@@ -37,6 +37,32 @@ DB_PASSWORD=laravel-pass
 
 ```
 /var/www# php artisan migrate
+```
+
+## laravel/ui + Bootstrap 4 導入手順
+
+### 1. laravel/ui インストール
+
+```
+/var/www# composer require laravel/ui "1.x" --dev
+```
+
+### 2. bootstrap 4 インストール
+
+```
+/var/www# php artisan ui bootstrap
+```
+
+### 3. npm パッケージのインストール
+
+```
+/var/www# npm install
+```
+
+### 4. ビルドタスクを実行
+
+```
+/var/www# npm run dev
 ```
 
 ## 環境構築後
