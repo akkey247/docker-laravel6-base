@@ -67,6 +67,14 @@ DB_PASSWORD=laravel-pass
 /var/www# npm run dev
 ```
 
+## 自動インストール
+
+環境構築 ＋ laravel/ui ＋ Bootstrap4 インストールを自動で実行する
+
+```
+/var/www# sh ~/install.sh
+```
+
 ## 環境構築後
 
 ### コンテナを起動する
