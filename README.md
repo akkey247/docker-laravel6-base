@@ -75,6 +75,44 @@ DB_PASSWORD=laravel-pass
 /var/www# sh ~/install.sh
 ```
 
+## マルチ認証機能追加
+
+### 1. laravel-admin インストール
+
+以下のコマンドを実行する
+
+```
+/var/www# composer require encore/laravel-admin
+```
+
+```
+/var/www# php artisan vendor:publish --provider="Encore\Admin\AdminServiceProvider"
+```
+
+```
+/var/www# php artisan admin:install
+```
+
+### 2. auth インストール
+
+```
+/var/www# php artisan ui vue --auth
+```
+
+### 3. ユーザー管理画面追加
+
+```
+/var/www# php artisan admin:make UserController --model=App\\User
+```
+
+### 4. app/Admin/routes.php にルーティング追加
+
+以下のコードを追加
+
+```
+$router->resource('user', UserController::class);
+```
+
 ## 環境構築後
 
 ### コンテナを起動する
