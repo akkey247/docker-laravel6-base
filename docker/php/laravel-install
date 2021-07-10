@@ -1,0 +1,95 @@
+#!/bin/bash
+
+# Laravel Install
+laravel_install () {
+    composer create-project --prefer-dist laravel/laravel=6.* .
+    sed -i '' -e "s/\(DB_CONNECTION=\).*/\1mysql/" .env
+    sed -i '' -e "s/\(DB_HOST=\).*/\1db/" .env
+    sed -i '' -e "s/\(DB_PORT=\).*/\13306/" .env
+    sed -i '' -e "s/\(DB_DATABASE=\).*/\1laravel/" .env
+    sed -i '' -e "s/\(DB_USERNAME=\).*/\1laravel-user/" .env
+    sed -i '' -e "s/\(DB_PASSWORD=\).*/\1laravel-pass/" .env
+    php artisan migrate
+}
+
+# Laravel UI Install
+laravel_ui_install () {
+    uitype=$1
+    uiauth=$2
+    composer require laravel/ui "1.x" --dev
+    php artisan ui ${uitype} ${uiauth}
+    npm install
+    npm run dev
+}
+
+# Help
+usage () {
+  cat << EOM
+Usage: $(basename "$0") [OPTION]...
+      --ui=TYPE         install laravel-ui
+      --auth            add auth option
+  -h, --help            display this help and exit
+  -v, --version         output version information and exit
+EOM
+}
+
+# Version
+version () {
+    echo 'v1.0.0'
+}
+
+cd /var/www
+
+while getopts h-:v-: opt; do
+    optarg="$OPTARG"
+    if [ "$opt" = - ]; then
+        opt="-${OPTARG%%=*}"
+        optarg="${OPTARG/${OPTARG%%=*}/}"
+        optarg="${optarg#=}"
+
+        if [ -z "$optarg" ] && [ ! "${!OPTIND}" = -* ]; then
+            optarg="${!OPTIND}"
+            shift
+        fi
+    fi
+
+    case "-$opt" in
+        --ui)
+            uitype=''
+            if [ "${optarg}" == 'bootstrap' ] \
+                || [ "${optarg}" == 'vue' ] \
+                || [ "${optarg}" == 'react' ] \
+            ; then
+                uitype="$optarg"
+            fi
+            ;;
+        --auth)
+            uiauth='--auth'
+            ;;
+        -h|--help)
+            usage
+            exit
+            ;;
+        -v|--version)
+            version
+            exit
+            ;;
+        --)
+            break
+            ;;
+        -\?)
+            usage
+            exit 1
+            ;;
+        --*)
+            echo "$0: illegal option -- ${opt##-}"
+            usage
+            exit 1
+            ;;
+    esac
+done
+
+laravel_install
+if [ -n "$uitype" ]; then
+    laravel_ui_install ${uitype} ${uiauth}
+fi

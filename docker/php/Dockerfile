@@ -26,4 +26,5 @@ WORKDIR /var/www
 
 RUN composer global require "laravel/installer"
 
-COPY install.sh /root/
+COPY laravel-install /usr/local/bin/
+RUN chmod 755 /usr/local/bin/laravel-install

@@ -69,13 +69,20 @@ DB_PASSWORD=laravel-pass
 
 ## 自動インストール
 
-環境構築 ＋ laravel/ui ＋ Bootstrap4 インストールを自動で実行する
+環境構築 ＋ laravel/ui インストールを自動で実行する
 
 ```
-/var/www# sh ~/install.sh
+/var/www# laravel-install
 ```
 
-## マルチ認証機能追加
+|オプション|説明|
+|---|---|
+|--ui=TYPE|TYPEにはvue,react,bootstrapが指定できる|
+|--auth|認証機能を追加する|
+|-h, --help|ヘルプを表示する|
+|-v, --version|コマンドのバージョンを表示する|
+
+## 管理機能追加
 
 ### 1. laravel-admin インストール
 
@@ -93,19 +100,13 @@ DB_PASSWORD=laravel-pass
 /var/www# php artisan admin:install
 ```
 
-### 2. auth インストール
-
-```
-/var/www# php artisan ui vue --auth
-```
-
-### 3. ユーザー管理画面追加
+### 2. ユーザー管理画面追加
 
 ```
 /var/www# php artisan admin:make UserController --model=App\\User
 ```
 
-### 4. app/Admin/routes.php にルーティング追加
+### 3. app/Admin/routes.php にルーティング追加
 
 以下のコードを追加
 
