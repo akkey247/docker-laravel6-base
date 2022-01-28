@@ -39,7 +39,7 @@ DB_PASSWORD=laravel-pass
 /var/www# php artisan migrate
 ```
 
-`php_network_getaddresses` エラーが出る場合は、DBのコンテナ名が `.env` の `DB_HOST` の値と違う名前で作られている可能性があるので、 `DB_HOST` の値にDBコンテナの名前を設定する。
+`php_network_getaddresses` エラーが出る場合は、DBのコンテナ名が `.env` の `DB_HOST` の値と違う名前で作られている可能性があるので、 `DB_HOST` の値にDBコンテナの名前を設定する。  
 
 ## laravel/ui + Bootstrap 4 導入手順
 
@@ -69,10 +69,11 @@ DB_PASSWORD=laravel-pass
 
 ## 自動インストール
 
-環境構築 ＋ laravel/ui インストールを自動で実行する
+環境構築(3〜5) ＋ laravel/ui インストールを自動で実行する。  
+コンテナ作成後、コンテナに入った状態で以下のコマンドを実行する。  
 
 ```
-/var/www# laravel-install
+/var/www# install-laravel
 ```
 
 |オプション|説明|
